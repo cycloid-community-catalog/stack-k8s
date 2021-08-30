@@ -83,7 +83,9 @@ module "gke" {
   ###
   # General
   ###
-
+  
+  depends_on    = [module.vpc]
+  
   #. gcp_project (required):
   #+ The Google Cloud Platform project to use. 
   gcp_project = var.gcp_project

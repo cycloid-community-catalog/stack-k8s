@@ -6,7 +6,7 @@ data "google_compute_subnetwork" "subnetwork" {
 
 module "gcp-gke" {
   source       = "terraform-google-modules/kubernetes-engine/google//modules/beta-private-cluster-update-variant"
-  version      = "~> 6.2.0"
+  version      = "~> 16.1.0"
   
   project_id = var.gcp_project
   region     = var.gcp_region
@@ -18,10 +18,10 @@ module "gcp-gke" {
   kubernetes_version = var.cluster_version
   release_channel    = var.cluster_release_channel
 
-  // This craziness gets a plain network name from the reference link which is the
+  // Gets a plain network name from the reference link which is the
   // only way to force cluster creation to wait on network creation without a
-  // depends_on link.  Tests use terraform 0.12.6, which does not have regex or regexall
-  network = reverse(split("/", data.google_compute_subnetwork.subnetwork.network))[0]
+  // depends_on link. --> doesn't seem to work in tf > 0.12 (null reference on tf plan)
+  network = regex ("([^//]+$)",data.google_compute_subnetwork.subnetwork.network)[0]
 
   subnetwork              = data.google_compute_subnetwork.subnetwork.name
   ip_range_pods           = var.pods_ip_range

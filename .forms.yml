@@ -57,7 +57,7 @@ aws-eks:
     config:
       - name: "Cluster name"
         description: "EKS Cluster Name."
-        key: cluster_name
+        key: module.config.cluster_name
         widget: simple_text
         type: string
         default: "($ project $)-($ environment $)"
@@ -281,6 +281,20 @@ azure-aks:
         widget: simple_text
         type: string
         default: ($ project $)/($ environment $)
+      - name: "Client ID for the Service Principal"
+        description: "Client ID for the Service Principal used by the AKS cluster"
+        key: aks_service_principal_client_id
+        widget: cy_cred
+        type: string
+        default: ((custom_($ project $)-($ environment $)-sp.client_id))
+      - name: "Client Secret for the Service Principal"
+        description: "Client Secret for the Service Principal used by the AKS cluster."
+        key: aks_service_principal_client_secret
+        widget: cy_cred
+        type: string
+        default: ((custom_($ project $)-($ environment $)-sp.client_secret))
+
+
 
     Repos:
       - name: "Config repository"
@@ -311,16 +325,16 @@ azure-aks:
     config:
       - name: "Resource Group Name"
         description: "Resource Group Name to use for the AKS Cluster"
-        key: cluster_name
-        widget: simple_text
-        type: string
-        default: "($ project $)-($ environment $)"
-      - name: "Cluster name"
-        description: "AKS Cluster name"
-        key: resource_group_name
+        key: module.config.resource_group_name
         widget: simple_text
         type: string
         default: "($ project $)-($ environment $)-aks"
+      - name: "Cluster name"
+        description: "AKS Cluster name"
+        key: module.config.cluster_name
+        widget: simple_text
+        type: string
+        default: "($ project $)-($ environment $)"
         
     vpc:
       - name: "Address Space"
@@ -556,7 +570,7 @@ scaleway-kapsule:
     config:
       - name: "Cluster name"
         description: "Kapsule Cluster Name."
-        key: cluster_name
+        key: module.config.cluster_name
         widget: simple_text
         type: string
         default: "($ project $)-($ environment $)"

@@ -4,7 +4,6 @@
 
 module "gcp-network" {
   source       = "terraform-google-modules/network/google"
-  version      = "~> 1.5.0"
 
   project_id   = var.gcp_project
   network_name = "${var.project}-gke-${var.env}"

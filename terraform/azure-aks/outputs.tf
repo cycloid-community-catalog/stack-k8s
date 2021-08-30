@@ -1,32 +1,32 @@
-# network
+# vpc
 output "vnet_id" {
   description = "AKS Cluster dedicated vNet ID."
-  value       = module.network.vnet_id
+  value       = module.vpc.vnet_id
 }
 
 output "vnet_name" {
   description = "AKS Cluster dedicated vNet name."
-  value       = module.network.vnet_name
+  value       = module.vpc.vnet_name
 }
 
 output "vnet_location" {
   description = "AKS Cluster dedicated vNet location."
-  value       = module.network.vnet_location
+  value       = module.vpc.vnet_location
 }
 
 output "vnet_subnet_ids" {
   description = "AKS Cluster dedicated vNet subnet IDs."
-  value       = module.network.vnet_subnet_ids
+  value       = module.vpc.vnet_subnet_ids
 }
 
 output "vnet_address_space" {
   description = "AKS Cluster dedicated vNet address space."
-  value       = module.network.vnet_address_space
+  value       = module.vpc.vnet_address_space
 }
 
 output "nodes_sg_allow" {
   description = "AKS Cluster dedicated vNet security group to allow SSH and metrics access to instances."
-  value       = module.network.nodes_sg_allow
+  value       = module.vpc.nodes_sg_allow
 }
 
 

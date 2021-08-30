@@ -56,6 +56,7 @@ project: ($ project $)
 #. customer (required): ($ organization_canonical $)
 #+ Name of the Cycloid Organization, used as customer variable name.
 customer: ($ organization_canonical $)
+organization: ($ organization_canonical $)
 
 #. stack_git_branch (required): master
 #+ Branch to use on the public stack Git repository
