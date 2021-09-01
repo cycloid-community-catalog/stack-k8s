@@ -67,7 +67,7 @@ resources:
   type: git
   icon: git
   source:
-    uri: https://github.com/marcoldp/k8s-stack
+    uri: https://github.com/cycloid-community-catalog/stack-kubernetes.git
     branch: ((stack_git_branch))
     paths:
       - terraform/aws-eks/*
