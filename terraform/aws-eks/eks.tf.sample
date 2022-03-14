@@ -125,7 +125,10 @@ module "eks" {
   #+ EKS cluster enabled log types.
 
   #. control_plane_allowed_ips (optional): ["0.0.0.0/0"]
-  #+ Allow Inbound IP CIDRs to access the Kubernetes API. 
+  #+ Allow Inbound IP CIDRs to access the Kubernetes API.
+
+  #. eks_admin_iam_role_arn (optional): ""
+  #+ AWS IAM role ARN to map as system:masters within the Kubernetes cluster. By default, a default arbitrary role called 'admin' will be allowed.
 
   ###
   # Required (should probably not be touched)
