@@ -83,7 +83,7 @@ data "template_file" "user-data-eks-node" {
     apiserver_endpoint = var.control_plane_endpoint
     b64_cluster_ca     = var.control_plane_ca
     cluster_name       = var.cluster_name
-    bootstrap_args     = "--kubelet-extra-args --node-labels=node.kubernetes.io/nodegroup=${var.node_group_name},node.kubernetes.io/lifecycle=%{ if var.node_launch_template_profile == "spot" }Ec2Spot%{ else }OnDemand%{ endif },node.cycloid.io/customer=${var.customer},node.cycloid.io/project=${var.project},node.cycloid.io/env=${var.env}"
+    bootstrap_args     = "--kubelet-extra-args --node-labels=node.kubernetes.io/nodegroup=${var.node_group_name},node.kubernetes.io/lifecycle=%{ if var.node_launch_template_profile == "spot" }Ec2Spot%{ else }OnDemand%{ endif },node.cycloid.io/customer=${var.customer},node.cycloid.io/project=${var.project},node.cycloid.io/env=${var.env},eks.amazonaws.com/capacityType=%{ if var.node_launch_template_profile == "spot" }SPOT%{ else }ON_DEMAND%{ endif },eks.amazonaws.com/nodegroup=${var.node_group_name},eks.amazonaws.com/nodegroup-image=${data.aws_ami.eks-node.id}"
   }
 }
 
