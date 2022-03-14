@@ -13,8 +13,8 @@ resource "aws_launch_template" "eks-node-spot" {
     market_type = "spot"
 
     spot_options {
-      spot_instance_type = "one-time"
-      max_price          = var.node_spot_price
+      spot_instance_type = var.node_spot_request_type != "" ? var.node_spot_request_type : null
+      max_price          = var.node_spot_price != "" ? var.node_spot_price : null
     }
   }
 
