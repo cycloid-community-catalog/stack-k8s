@@ -44,7 +44,9 @@ resource "aws_launch_template" "eks-node-spot" {
     Name                                        = "${var.project}-${var.env}-eks-node-${var.node_group_name}-template"
     role                                        = "eks-node-template"
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-    "kubernetes.io/nodegroup/name"             = "${var.node_group_name}"
+    "kubernetes.io/nodegroup/name"              = var.node_group_name
+    "eks:cluster-name"                          = var.cluster_name
+    "eks:nodegroup-name"                        = var.node_group_name
   })
 
   tag_specifications {
@@ -54,7 +56,9 @@ resource "aws_launch_template" "eks-node-spot" {
       Name                                        = "${var.project}-${var.env}-eks-node-${var.node_group_name}"
       role                                        = "eks-node"
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-      "kubernetes.io/nodegroup/name"             = "${var.node_group_name}"
+      "kubernetes.io/nodegroup/name"              = var.node_group_name
+      "eks:cluster-name"                          = var.cluster_name
+      "eks:nodegroup-name"                        = var.node_group_name
     })
   }
   tag_specifications {
@@ -64,7 +68,9 @@ resource "aws_launch_template" "eks-node-spot" {
       Name                                        = "${var.project}-${var.env}-eks-node-${var.node_group_name}"
       role                                        = "eks-node"
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-      "kubernetes.io/nodegroup/name"             = "${var.node_group_name}"
+      "kubernetes.io/nodegroup/name"              = var.node_group_name
+      "eks:cluster-name"                          = var.cluster_name
+      "eks:nodegroup-name"                        = var.node_group_name
     })
   }
 

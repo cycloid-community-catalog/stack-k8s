@@ -111,7 +111,7 @@ variable "node_group_name" {
 
 variable "node_launch_template_profile" {
   description = "EKS nodes profile, can be either `ondemand` or `spot`."
-  default = "ondemand"
+  default     = "ondemand"
 }
 
 variable "node_launch_template_id" {
