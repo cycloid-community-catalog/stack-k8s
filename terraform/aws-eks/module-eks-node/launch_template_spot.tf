@@ -18,6 +18,11 @@ resource "aws_launch_template" "eks-node-spot" {
     }
   }
 
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_put_response_hop_limit = 2
+  }
+
   network_interfaces {
     associate_public_ip_address = var.node_associate_public_ip_address
     delete_on_termination       = true

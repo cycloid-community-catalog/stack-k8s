@@ -112,9 +112,9 @@ resource "aws_cloudformation_stack" "eks-node" {
         "DesiredCapacity": "${var.node_count}",
         "MinSize": "${var.node_asg_min_size}",
         "MaxSize": "${var.node_asg_max_size}",
-        "TerminationPolicies": ["OldestLaunchConfiguration", "NewestInstance"],
+        "TerminationPolicies": ["AllocationStrategy", "OldestLaunchTemplate", "OldestInstance"],
         "HealthCheckType": "EC2",
-        "HealthCheckGracePeriod": 600,
+        "HealthCheckGracePeriod": 15,
         "MetricsCollection": [{
           "Granularity": "1Minute",
           "Metrics": ["GroupMinSize", "GroupMaxSize", "GroupDesiredCapacity", "GroupInServiceInstances", "GroupPendingInstances", "GroupStandbyInstances", "GroupTerminatingInstances", "GroupTotalInstances"]
