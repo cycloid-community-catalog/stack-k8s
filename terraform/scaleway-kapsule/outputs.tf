@@ -18,57 +18,57 @@ output "scw_zone" {
 
 output "cluster_id" {
   description = "Kapsule Cluster ID."
-  value       = module.kapsule.cluster_id
+  value       = try(module.kapsule.cluster_id, null)
 }
 
 output "cluster_name" {
   description = "Kapsule Cluster name."
-  value       = module.kapsule.cluster_name
+  value       = try(module.kapsule.cluster_name, null)
 }
 
 output "cluster_version" {
   description = "Kapsule Cluster version."
-  value       = module.kapsule.cluster_version
+  value       = try(module.kapsule.cluster_version, null)
 }
 
 output "cluster_wildcard_dns" {
   description = "The DNS wildcard that points to all ready nodes."
-  value       = module.kapsule.cluster_wildcard_dns
+  value       = try(module.kapsule.cluster_wildcard_dns, null)
 }
 
 output "cluster_status" {
   description = "Kapsule Cluster status of the Kubernetes cluster."
-  value       = module.kapsule.cluster_status
+  value       = try(module.kapsule.cluster_status, null)
 }
 
 output "cluster_upgrade_available" {
   description = "Set to `true` if a newer Kubernetes version is available."
-  value       = module.kapsule.cluster_upgrade_available
+  value       = try(module.kapsule.cluster_upgrade_available, null)
 }
 
 output "control_plane_endpoint" {
   description = "Kapsule Cluster URL of the Kubernetes API server."
-  value       = module.kapsule.control_plane_endpoint
+  value       = try(module.kapsule.control_plane_endpoint, null)
 }
 
 output "control_plane_host" {
   description = "Kapsule Cluster URL of the Kubernetes API server."
-  value       = module.kapsule.control_plane_host
+  value       = try(module.kapsule.control_plane_host, null)
 }
 
 output "control_plane_ca" {
   description = "Kapsule Cluster CA certificate of the Kubernetes API server."
-  value       = module.kapsule.control_plane_ca
+  value       = try(module.kapsule.control_plane_ca, null)
 }
 
 output "control_plane_token" {
   description = "Kapsule Cluster token to connect to the Kubernetes API server."
-  value       = module.kapsule.control_plane_token
+  value       = try(module.kapsule.control_plane_token, null)
 }
 
 output "kubeconfig" {
   description = "Kubernetes config to connect to the Kapsule cluster."
-  value       = module.kapsule.kubeconfig
+  value       = try(module.kapsule.kubeconfig, null)
 }
 
 #
@@ -77,35 +77,35 @@ output "kubeconfig" {
 
 output "node_pool_id" {
   description = "Kapsule node pool ID."
-  value       = module.node_pool.node_pool_id
+  value       = try(module.node_pool.node_pool_id, null)
 }
 
 output "node_pool_status" {
   description = "Kapsule node pool status."
-  value       = module.node_pool.node_pool_status
+  value       = try(module.node_pool.node_pool_status, null)
 }
 
 output "node_pool_version" {
   description = "Kapsule node pool version."
-  value       = module.node_pool.node_pool_version
+  value       = try(module.node_pool.node_pool_version, null)
 }
 
 output "node_pool_current_size" {
   description = "Kapsule node pool current size."
-  value       = module.node_pool.node_pool_current_size
+  value       = try(module.node_pool.node_pool_current_size, null)
 }
 
 output "node_pool_nodes" {
   description = "Kapsule node pool nodes informations."
-  value       = module.node_pool.node_pool_nodes
+  value       = try(module.node_pool.node_pool_nodes, null)
 }
 
 output "node_pool_public_ips" {
   description = "Kapsule node pool public IPs."
-  value       = module.node_pool.node_pool_public_ips
+  value       = try(module.node_pool.node_pool_public_ips, null)
 }
 
 output "node_pool_public_ipv6s" {
   description = "Kapsule node pool public IPv6s."
-  value       = module.node_pool.node_pool_public_ipv6s
+  value       = try(module.node_pool.node_pool_public_ipv6s, null)
 }

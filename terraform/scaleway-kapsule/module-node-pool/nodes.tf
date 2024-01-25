@@ -2,7 +2,7 @@
 # Node Pool
 #
 
-resource "scaleway_k8s_pool_beta" "nodes" {
+resource "scaleway_k8s_pool" "nodes" {
   cluster_id = var.cluster_id
   name       = "${var.cluster_name}-${var.node_pool_name}"
   node_type  = var.node_type

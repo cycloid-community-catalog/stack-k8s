@@ -36,7 +36,7 @@ module "kapsule" {
   #. extra_tags (optional): []
   #+ Dict of extra tags to add on aws resources. format [ "foo=bar" ].
   extra_tags = []
-  
+
   ###
   # Control plane
   ###
@@ -49,10 +49,6 @@ module "kapsule" {
   #+ The Container Network Interface (CNI) for the Kubernetes cluster (either `cilium`, `calico`, `weave` or `flannel`).
   cni = "cilium"
 
-  #. ingress (optional): nginx
-  #+ The ingress controller to be deployed on the Kubernetes cluster (either `nginx`, `traefik`, `traefik2` or `none`).
-  ingress = "nginx"
-
   #. enable_dashboard (optional): true
   #+ Enables the Kubernetes dashboard for the Kubernetes cluster.
   enable_dashboard = true
@@ -64,7 +60,7 @@ module "kapsule" {
   #+ The list of admission plugins to enable on the cluster.
 
   #. auto_upgrade (optional): true
-  #+ Set to `true` to enable Kubernetes patch version auto upgrades. Important: When enabling auto upgrades, the `cluster_version` variable take a minor version like x.y (ie 1.18).  
+  #+ Set to `true` to enable Kubernetes patch version auto upgrades. Important: When enabling auto upgrades, the `cluster_version` variable take a minor version like x.y (ie 1.18).
   auto_upgrade = true
 
   #. maintenance_window_day (optional): "tuesday"
