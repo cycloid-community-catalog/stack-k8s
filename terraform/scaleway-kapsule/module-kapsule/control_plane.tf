@@ -2,16 +2,18 @@
 # Kapsule Cluster
 #
 
-resource "scaleway_k8s_cluster_beta" "cluster" {
+# resource "scaleway_vpc_private_network" "subnet" {}
+
+resource "scaleway_k8s_cluster" "cluster" {
   name        = var.cluster_name
   description = "${var.customer} ${var.project} Kapsule ${var.env} cluster"
   version     = var.cluster_version
-  
-  cni               = var.cni
-  ingress           = var.ingress
-  enable_dashboard  = var.enable_dashboard
-  feature_gates     = var.feature_gates
-  admission_plugins = var.admission_plugins
+
+  cni = var.cni
+  # private_network_id = scaleway_vpc_private_network.subnet.id
+  feature_gates               = var.feature_gates
+  admission_plugins           = var.admission_plugins
+  delete_additional_resources = false
 
   tags = compact(concat(local.merged_tags, [
     "role=control-plane"

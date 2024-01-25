@@ -49,9 +49,11 @@ resources:
       region: ((scw_default_region))
       access_key: ((scw_access_key))
       secret_key: ((scw_secret_key))
-      endpoint: 'https://s3.((scw_default_region)).scw.cloud'
+      endpoints:
+        s3: 'https://s3.((scw_default_region)).scw.cloud'
       skip_credentials_validation: true
       skip_region_validation: true
+      skip_requesting_account_id: true
     vars:
       scw_organization_id: ((scw_organization_id))
       scw_access_key: ((scw_access_key))
