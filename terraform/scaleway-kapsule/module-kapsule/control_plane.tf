@@ -2,16 +2,52 @@
 # Kapsule Cluster
 #
 
-resource "scaleway_k8s_cluster_beta" "cluster" {
+# VPC
+resource "scaleway_vpc" "vpc" {
+  name = "${var.project}-${var.env}"
+  tags = compact(concat(local.merged_tags, [
+    "role=control-plane"
+  ]))
+}
+
+# Subnet
+resource "scaleway_vpc_private_network" "priv" {
+  name   = "${var.project}-${var.env}-prv"
+  vpc_id = scaleway_vpc.vpc.id
+  ipv4_subnet {
+    subnet = var.private_network_cidr
+  }
+  tags = compact(concat(local.merged_tags, [
+    "role=control-plane"
+  ]))
+}
+
+# Nat GW
+resource "scaleway_vpc_public_gateway_ip" "pub" {
+  tags = compact(concat(local.merged_tags, [
+    "role=control-plane"
+  ]))
+}
+
+resource "scaleway_vpc_public_gateway" "nat" {
+  name  = "${var.project}-${var.env}-nat-gw"
+  type  = "VPC-GW-S"
+  ip_id = scaleway_vpc_public_gateway_ip.pub.id
+  tags = compact(concat(local.merged_tags, [
+    "role=control-plane"
+  ]))
+}
+
+resource "scaleway_k8s_cluster" "cluster" {
   name        = var.cluster_name
   description = "${var.customer} ${var.project} Kapsule ${var.env} cluster"
   version     = var.cluster_version
-  
-  cni               = var.cni
-  ingress           = var.ingress
-  enable_dashboard  = var.enable_dashboard
-  feature_gates     = var.feature_gates
-  admission_plugins = var.admission_plugins
+
+  cni                         = var.cni
+  private_network_id          = scaleway_vpc_private_network.priv.id
+  feature_gates               = var.feature_gates
+  admission_plugins           = var.admission_plugins
+  delete_additional_resources = false
 
   tags = compact(concat(local.merged_tags, [
     "role=control-plane"
