@@ -55,6 +55,7 @@ resources:
       skip_region_validation: true
       skip_requesting_account_id: true
     vars:
+      scw_project_id: ((scw_project_id))
       scw_organization_id: ((scw_organization_id))
       scw_access_key: ((scw_access_key))
       scw_secret_key: ((scw_secret_key))

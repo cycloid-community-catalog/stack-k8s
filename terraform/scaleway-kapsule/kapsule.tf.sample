@@ -43,7 +43,7 @@ module "kapsule" {
 
   #. cluster_version (optional): 1.19
   #+ Kapsule cluster version.
-  cluster_version = "1.19"
+  cluster_version = "1.27"
 
   #. cni (optional): cilium
   #+ The Container Network Interface (CNI) for the Kubernetes cluster (either `cilium`, `calico`, `weave` or `flannel`).

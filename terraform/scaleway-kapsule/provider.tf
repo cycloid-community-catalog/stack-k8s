@@ -5,4 +5,5 @@ provider "scaleway" {
   region          = var.scw_region
   zone            = local.scw_zone
   organization_id = var.scw_organization_id
+  project_id      = var.scw_project_id
 }

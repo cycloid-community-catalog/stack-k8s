@@ -54,21 +54,39 @@ output "control_plane_endpoint" {
 output "control_plane_host" {
   description = "Kapsule Cluster URL of the Kubernetes API server."
   value       = try(module.kapsule.control_plane_host, null)
+  sensitive   = true
 }
 
 output "control_plane_ca" {
   description = "Kapsule Cluster CA certificate of the Kubernetes API server."
   value       = try(module.kapsule.control_plane_ca, null)
+  sensitive   = true
 }
 
 output "control_plane_token" {
   description = "Kapsule Cluster token to connect to the Kubernetes API server."
   value       = try(module.kapsule.control_plane_token, null)
+  sensitive   = true
 }
 
 output "kubeconfig" {
   description = "Kubernetes config to connect to the Kapsule cluster."
   value       = try(module.kapsule.kubeconfig, null)
+  sensitive   = true
+}
+
+
+# VPC
+
+output "scaleway_vpc_id" {
+  value = try(module.kapsule.scaleway_vpc_id, null)
+}
+
+output "scaleway_vpc_private_network_id" {
+  value = try(module.kapsule.scaleway_vpc_private_network_id, null)
+}
+output "nat_gw_ip" {
+  value = try(module.kapsule.nat_gw_ip, null)
 }
 
 #

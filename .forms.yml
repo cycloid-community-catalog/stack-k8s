@@ -518,6 +518,12 @@ gcp-gke:
 scaleway-kapsule:
   pipeline:
     Terraform:
+      - name: "Scaleway project id"
+        description: "Scaleway project id where to create resources."
+        key: scw_project_id
+        widget: simple_text
+        type: string
+        required: true
       - name: "Scaleway access key"
         description: "Scaleway access key for Terraform."
         key: scw_access_key
@@ -850,5 +856,3 @@ scaleway-nodes:
         widget: text_area
         type: raw
         default: "[]"
-
-

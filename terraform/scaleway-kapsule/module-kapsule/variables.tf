@@ -59,7 +59,12 @@ variable "cluster_name" {
 variable "cluster_version" {
   type        = string
   description = "Kapsule Cluster version to use."
-  default     = "1.19"
+  default     = "1.24"
+}
+
+variable "private_network_cidr" {
+  type    = string
+  default = "10.5.0.0/20"
 }
 
 variable "cni" {

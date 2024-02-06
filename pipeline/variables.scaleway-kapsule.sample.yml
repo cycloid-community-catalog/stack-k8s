@@ -20,6 +20,8 @@ scw_secret_key: ((scaleway.secret_key))
 #+ Scaleway region to use for Terraform.
 scw_default_region: fr-par
 
+scw_project_id:
+
 #. terraform_storage_bucket_name (required): ($ organization_canonical $)-terraform-remote-state
 #+ AWS S3 bucket name to store terraform remote state file.
 terraform_storage_bucket_name: ($ organization_canonical $)-terraform-remote-state

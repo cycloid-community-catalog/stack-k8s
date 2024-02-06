@@ -21,6 +21,11 @@ variable "customer" {
 # Scaleway
 #
 
+variable "scw_project_id" {
+  type    = string
+  default = "default"
+}
+
 variable "scw_access_key" {
   type        = string
   description = "Scaleway access key."

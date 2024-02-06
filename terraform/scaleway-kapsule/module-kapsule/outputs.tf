@@ -36,16 +36,19 @@ output "control_plane_endpoint" {
 output "control_plane_host" {
   description = "Kapsule Cluster URL of the Kubernetes API server."
   value       = scaleway_k8s_cluster.cluster.kubeconfig[0].host
+  sensitive   = true
 }
 
 output "control_plane_ca" {
   description = "Kapsule Cluster CA certificate of the Kubernetes API server."
   value       = scaleway_k8s_cluster.cluster.kubeconfig[0].cluster_ca_certificate
+  sensitive   = true
 }
 
 output "control_plane_token" {
   description = "Kapsule Cluster token to connect to the Kubernetes API server."
   value       = scaleway_k8s_cluster.cluster.kubeconfig[0].token
+  sensitive   = true
 }
 
 locals {
@@ -74,4 +77,17 @@ KUBECONFIG
 output "kubeconfig" {
   description = "Kubernetes config to connect to the Kapsule Cluster."
   value       = local.kubeconfig
+  sensitive   = true
+}
+
+output "scaleway_vpc_id" {
+  value = scaleway_vpc.vpc.id
+}
+
+output "scaleway_vpc_private_network_id" {
+  value = scaleway_vpc_private_network.priv.id
+}
+
+output "nat_gw_ip" {
+  value = scaleway_vpc_public_gateway_ip.pub.address
 }
