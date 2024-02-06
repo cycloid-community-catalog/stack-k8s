@@ -1,7 +1,6 @@
 #
 # Kapsule Cluster
 #
-
 # VPC
 resource "scaleway_vpc" "vpc" {
   name = "${var.project}-${var.env}"
@@ -42,7 +41,6 @@ resource "scaleway_k8s_cluster" "cluster" {
   name        = var.cluster_name
   description = "${var.customer} ${var.project} Kapsule ${var.env} cluster"
   version     = var.cluster_version
-
   cni                         = var.cni
   private_network_id          = scaleway_vpc_private_network.priv.id
   feature_gates               = var.feature_gates
