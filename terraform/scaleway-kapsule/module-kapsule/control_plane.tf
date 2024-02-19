@@ -37,10 +37,20 @@ resource "scaleway_vpc_public_gateway" "nat" {
   ]))
 }
 
+# Attatch private network to nat
+resource "scaleway_vpc_gateway_network" "nat" {
+  gateway_id         = scaleway_vpc_public_gateway.nat.id
+  private_network_id = scaleway_vpc_private_network.priv.id
+  enable_masquerade  = true
+  ipam_config {
+    push_default_route = true
+  }
+}
+
 resource "scaleway_k8s_cluster" "cluster" {
-  name        = var.cluster_name
-  description = "${var.customer} ${var.project} Kapsule ${var.env} cluster"
-  version     = var.cluster_version
+  name                        = var.cluster_name
+  description                 = "${var.customer} ${var.project} Kapsule ${var.env} cluster"
+  version                     = var.cluster_version
   cni                         = var.cni
   private_network_id          = scaleway_vpc_private_network.priv.id
   feature_gates               = var.feature_gates
