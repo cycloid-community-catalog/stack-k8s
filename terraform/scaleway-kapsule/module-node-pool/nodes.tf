@@ -17,6 +17,8 @@ resource "scaleway_k8s_pool" "nodes" {
   placement_group_id  = var.placement_group_id
   wait_for_pool_ready = var.wait_for_pool_ready
 
+  public_ip_disabled = var.public_ip_disabled
+
   tags = compact(concat(local.merged_tags, [
     "role=node-pool"
   ]))
