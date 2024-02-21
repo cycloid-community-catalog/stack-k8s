@@ -91,3 +91,7 @@ output "scaleway_vpc_private_network_id" {
 output "nat_gw_ip" {
   value = scaleway_vpc_public_gateway_ip.pub.address
 }
+
+output "private_network_cidr" {
+  value = var.private_network_cidr
+}

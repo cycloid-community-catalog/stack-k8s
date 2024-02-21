@@ -85,8 +85,13 @@ output "scaleway_vpc_id" {
 output "scaleway_vpc_private_network_id" {
   value = try(module.kapsule.scaleway_vpc_private_network_id, null)
 }
+
 output "nat_gw_ip" {
   value = try(module.kapsule.nat_gw_ip, null)
+}
+
+output "private_network_cidr" {
+  value = try(module.kapsule.private_network_cidr, null)
 }
 
 #
