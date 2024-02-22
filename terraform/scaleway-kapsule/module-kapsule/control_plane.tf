@@ -35,6 +35,10 @@ resource "scaleway_vpc_public_gateway" "nat" {
   tags = compact(concat(local.merged_tags, [
     "role=control-plane"
   ]))
+
+  # By default, the SMTP ports (25, 465, 587, 2525) are blocked to avoid spam.
+  # If you wish to send emails from resources located behind your Public Gateway, open these ports by enabling SMTP.
+  enable_smtp = true
 }
 
 # Attatch private network to nat
