@@ -20,24 +20,6 @@ gcp_region: europe-west1
 #+ Google Cloud Storage bucket name to store terraform remote state file.
 terraform_storage_bucket_name: ($ organization_canonical $)-terraform-remote-state
 
-
-#
-# Repos
-#
-
-#. config_git_repository (required): git@github.com:MyUser/config-gke.git
-#+ Git repository URL containing the config of the stack.
-config_git_repository: git@github.com:MyUser/config-gke.git
-
-#. config_git_branch (required): master
-#+ Branch of the config Git repository.
-config_git_branch: master
-
-#. config_git_private_key (required): ((ssh_config.ssh_key))
-#+ SSH key pair to fetch the config Git repository.
-config_git_private_key: ((ssh_config.ssh_key))
-
-
 #
 # Default variables that shouldn't be changed except if needed
 #
@@ -58,10 +40,6 @@ organization: ($ organization_canonical $)
 #. stack_git_branch (required): master
 #+ Branch to use on the public stack Git repository
 stack_git_branch: master
-
-#. config_terraform_path (required): ($ project $)/terraform/($ environment $)
-#+ Path of Terraform files in the config git repository
-config_terraform_path: ($ project $)/terraform/($ environment $)
 
 #. terraform_version (required): '1.0.4'
 #+ terraform version used to execute your code.

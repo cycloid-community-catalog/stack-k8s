@@ -76,11 +76,11 @@ resources:
   type: git
   icon: git
   source:
-    uri: ((config_git_repository))
-    branch: ((config_git_branch))
-    private_key: ((config_git_private_key))
+    uri: ($ cr_url $)
+    branch: ($ cr_branch $)
+    private_key: ((($ cr_cred_path $).ssh_key))
     paths:
-      - ((config_terraform_path))/*
+      - ($ project $)/terraform/($ environment $)/*
 
 jobs:
 

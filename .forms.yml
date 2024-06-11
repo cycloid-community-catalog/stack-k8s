@@ -1,7 +1,12 @@
----
-azure-aks:
-  pipeline:
-    Terraform:
+version: "2"
+use_cases:
+- name: azure-aks
+  sections:
+  - name: Cloud Provider
+    groups:
+    - name: Access
+      technologies: [pipeline]
+      vars:
       - name: "Azure Subscription ID"
         description: "Azure subscription ID to use for Terraform."
         key: azure_subscription_id
@@ -77,33 +82,11 @@ azure-aks:
         default: ((custom_($ project $)-($ environment $)-sp.client_secret))
 
 
-
-    Repos:
-      - name: "Config repository"
-        description: "Git repository URL containing the config of the stack."
-        key: config_git_repository
-        type: string
-        widget: cy_crs
-        default: "git@github.com:MyUser/config-aks.git"
-        required: true
-      - name: "Config git key"
-        description: "SSH key pair to fetch the config Git repository."
-        key: config_git_private_key
-        type: string
-        widget: cy_cred
-        default: "((ssh_config.ssh_key))"
-        required: true
-      - name: "Config branch"
-        description: "Branch of the config Git repository."
-        key: config_git_branch
-        widget: cy_branch
-        type: string
-        source: config_git_repository
-        default: "master"
-        required: true
-
-  terraform:
-    config:
+  - name: Infra
+    groups:
+    - name: Config
+      technologies: [terraform]
+      vars:
       - name: "Resource Group Name"
         description: "Resource Group Name to use for the AKS Cluster"
         key: module.config.resource_group_name
@@ -117,7 +100,9 @@ azure-aks:
         type: string
         default: "($ project $)-($ environment $)"
 
-    vpc:
+    - name: vpc
+      technologies: [terraform]
+      vars:
       - name: "Address Space"
         description: "The virtual network address space."
         key: module.vpc.address_space
@@ -133,11 +118,13 @@ azure-aks:
           "nodes": "10.8.0.0/16"
           "pods": "10.9.0.0/16"
           "loadbalancers": "10.11.0.0/16"
-        # type: raw
-        # default: |+
-        #   "{ "nodes" = "10.8.0.0/16", "pods"  = "10.9.0.0/16", "loadbalancers" = "10.11.0.0/16",}"
+        # type: map
+        # default:
+        #   { "nodes" = "10.8.0.0/16", "pods"  = "10.9.0.0/16", "loadbalancers" = "10.11.0.0/16",}
 
-    aks:
+    - name: aks
+      technologies: [terraform]
+      vars:
       - name: "AKS cluster network plugin"
         description: "AKS cluster network plugin to use, can be either `azure` or `kubenet`."
         key: module.aks.network_plugin
@@ -179,9 +166,13 @@ azure-aks:
         default: "1"
         required: true
 
-gcp-gke:
-  pipeline:
-    Terraform:
+- name: gcp-gke
+  sections:
+  - name: Cloud Provider
+    groups:
+    - name: Access
+      technologies: [pipeline]
+      vars:
       - name: "GCP json credentials"
         description: "GCP JSON for Terraform. See value format [here](https://docs.cycloid.io/advanced-guide/integrate-and-use-cycloid-credentials-manager.html#vault-in-the-pipeline)"
         key: gcp_credentials_json
@@ -208,32 +199,11 @@ gcp-gke:
         type: string
         default: ($ organization_canonical $)-terraform-remote-state
 
-    Repos:
-      - name: "Config repository"
-        key: config_git_repository
-        type: string
-        widget: cy_crs
-        description: "Git repository URL containing the config of the stack."
-        default: "git@github.com:MyUser/config-gke.git"
-        required: true
-      - name: "Config git key"
-        description: "SSH key pair to fetch the config Git repository."
-        key: config_git_private_key
-        type: string
-        widget: cy_cred
-        default: "((ssh_config.ssh_key))"
-        required: true
-      - name: "Config branch"
-        description: "Branch of the config Git repository."
-        key: config_git_branch
-        widget: cy_branch
-        type: string
-        source: config_git_repository
-        default: "master"
-        required: true
-
-  terraform:
-    config:
+  - name: Infra
+    groups:
+    - name: Config
+      technologies: [terraform]
+      vars:
       - name: "Cluster name"
         description: "GKE Cluster Name."
         key: module.config.cluster_name
@@ -241,7 +211,9 @@ gcp-gke:
         type: string
         default: "($ project $)-($ environment $)"
 
-    vpc:
+    - name: VPC
+      technologies: [terraform]
+      vars:
       - name: "VPC subnet CIDR"
         description: "The CIDR of the VPC subnet."
         key: module.vpc.subnet_cidr
@@ -261,14 +233,16 @@ gcp-gke:
         type: string
         default: "10.10.0.0/16"
 
-    gke:
+    - name: GKE
+      technologies: [terraform]
+      vars:
       - name: "Node Pools"
         description: "GKE Cluster list of maps containing node pools to create."
         key: module.gke.node_pools
         widget: text_area
-        type: raw
-        default: |+
-          "[
+        type: array
+        default:
+          [
             {
               name         = "my-node-pool"
               machine_type = "n1-standard-1"
@@ -284,11 +258,15 @@ gcp-gke:
               disk_size_gb    = 100
               disk_type       = "pd-ssd"
             },
-          ]"
+          ]
 
-scaleway-kapsule:
-  pipeline:
-    Terraform:
+- name: scaleway-kapsule
+  sections:
+  - name: Cloud Provider
+    groups:
+    - name: Access
+      technologies: [pipeline]
+      vars:
       - name: "Scaleway project id"
         description: "Scaleway project id where to create resources."
         key: scw_project_id
@@ -327,8 +305,11 @@ scaleway-kapsule:
         type: string
         default: ($ organization_canonical $)-terraform-remote-state
 
-  terraform:
-    config:
+  - name: Infra
+    groups:
+    - name: Config
+      technologies: [terraform]
+      vars:
       - name: "Cluster name"
         description: "Kapsule Cluster Name."
         key: module.config.cluster_name
@@ -336,7 +317,9 @@ scaleway-kapsule:
         type: string
         default: "($ project $)-($ environment $)"
 
-    kapsule:
+    - name: kapsule
+      technologies: [terraform]
+      vars:
       - name: "Cluster version"
         description: "Kapsule cluster version."
         key: module.kapsule.cluster_version
@@ -385,7 +368,9 @@ scaleway-kapsule:
             - 0
             - 23
 
-    node-pool:
+    - name: node-pool
+      technologies: [terraform]
+      vars:
       - name: "Node pool name"
         description: "Kapsule node group given name."
         key: module.node_pool.node_pool_name
@@ -446,12 +431,21 @@ scaleway-kapsule:
         description: "Dict of extra tags to add on the pool."
         key: module.node_pool.extra_tags
         widget: text_area
-        type: raw
-        default: "[]"
+        type: array
 
-scaleway-nodes:
-  pipeline:
-    Terraform:
+- name: scaleway-nodes
+  sections:
+  - name: Cloud Provider
+    groups:
+    - name: Access
+      technologies: [pipeline]
+      vars:
+      - name: "Scaleway project id"
+        description: "Scaleway project id where to create resources."
+        key: scw_project_id
+        widget: simple_text
+        type: string
+        required: true
       - name: "Scaleway access key"
         description: "Scaleway access key for Terraform."
         key: scw_access_key
@@ -484,8 +478,11 @@ scaleway-nodes:
         type: string
         default: ($ organization_canonical $)-terraform-remote-state
 
-  terraform:
-    config:
+  - name: Infra
+    groups:
+    - name: Config
+      technologies: [terraform]
+      vars:
       - name: "Cluster name"
         description: "Kapsule Cluster Name."
         key: module.config.cluster_name
@@ -493,7 +490,9 @@ scaleway-nodes:
         type: string
         default: "($ project $)-($ environment $)"
 
-    node-pool:
+    - name: node-pool
+      technologies: [terraform]
+      vars:
       - name: "Kubernetes cluster id"
         description: "The Kubernetes id the nodes of the pool will be attached to."
         key: module.node_pool.cluster_id
@@ -560,5 +559,4 @@ scaleway-nodes:
         description: "Dict of extra tags to add on the pool."
         key: module.node_pool.extra_tags
         widget: text_area
-        type: raw
-        default: "[]"
+        type: array
