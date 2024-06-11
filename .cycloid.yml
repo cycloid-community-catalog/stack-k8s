@@ -11,8 +11,6 @@ keywords:
   - 'k8s'
   - 'aks'
   - 'provider:azure'
-  - 'eks'
-  - 'provider:aws'
   - 'gke'
   - 'provider:gcp'
   - 'kapsule'
@@ -24,30 +22,10 @@ technologies:
      version: n/a
    - technology: Azure
      version: n/a
-   - technology: AWS
-     version: n/a
    - technology: Scaleway
      version: n/a
 
 config:
-  # define the default environment for aws
-  aws-eks:
-    name: 'aws-eks'
-    description: 'Creates Amazon Elastic K8s Service cluster (EKS) in dedicated VPC with 1+ node groups'
-    cloud_provider: aws
-    # Configuration of the CI pipeline
-    pipeline:
-      pipeline:
-        path: 'pipeline/aws-eks.yml'
-      variables:
-        path: 'pipeline/variables.aws-eks.sample.yml'
-        destination: '($ project $)/pipeline/variables-($ environment $).yml'
-    # Configuration of terraform to setup the infrastructure
-    terraform:
-      eks:
-        path: 'terraform/aws-eks/eks.tf.sample'
-        destination: '($ project $)/terraform/($ environment $)/eks.tf'
-
   # define the default environment for azure
   azure-aks:
     name: 'azure-aks'
@@ -66,7 +44,7 @@ config:
         path: 'terraform/azure-aks/aks.tf.sample'
         destination: '($ project $)/terraform/($ environment $)/aks.tf'
 
-  # define the default environment for google 
+  # define the default environment for google
   gcp-gke:
     name: 'gcp-gke'
     cloud_provider: google
@@ -84,7 +62,7 @@ config:
         path: 'terraform/gcp-gke/gke.tf.sample'
         destination: '($ project $)/terraform/($ environment $)/gke.tf'
 
-  # define the default environment for kapsule 
+  # define the default environment for kapsule
   scaleway-kapsule:
     name: 'scaleway-kapsule'
     cloud_provider: scaleway
@@ -118,4 +96,3 @@ config:
       kapsule:
         path: 'terraform/scaleway-kapsule/node_pool.tf.sample'
         destination: '($ project $)/terraform/($ environment $)/node_pool.tf'
-
