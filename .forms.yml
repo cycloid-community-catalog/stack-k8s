@@ -594,12 +594,6 @@ scaleway-kapsule:
             - "traefik"
             - "traefik2"
             - "none"
-      - name: "Enable Kubernetes Dashboard"
-        description: "Enables the Kubernetes dashboard for the Kubernetes cluster."
-        key: module.kapsule.enable_dashboard
-        widget: switch
-        type: boolean
-        default: true
       - name: "Kubernetes auto upgrade"
         description: "Set to `true` to enable Kubernetes patch version auto upgrades."
         key: module.kapsule.auto_upgrade

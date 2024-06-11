@@ -49,10 +49,6 @@ module "kapsule" {
   #+ The Container Network Interface (CNI) for the Kubernetes cluster (either `cilium`, `calico`, `weave` or `flannel`).
   cni = "cilium"
 
-  #. enable_dashboard (optional): true
-  #+ Enables the Kubernetes dashboard for the Kubernetes cluster.
-  enable_dashboard = true
-
   #. feature_gates (optional): []
   #+ The list of feature gates to enable on the cluster.
 
