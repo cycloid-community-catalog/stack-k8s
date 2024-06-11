@@ -556,30 +556,6 @@ scaleway-kapsule:
         type: string
         default: ($ organization_canonical $)-terraform-remote-state
 
-    Repos:
-      - name: "Config repository"
-        key: config_git_repository
-        type: string
-        widget: cy_crs
-        description: "Git repository URL containing the config of the stack."
-        default: "git@github.com:MyUser/config-kapsule.git"
-        required: true
-      - name: "Config git key"
-        description: "SSH key pair to fetch the config Git repository."
-        key: config_git_private_key
-        type: string
-        widget: cy_cred
-        default: "((ssh_config.ssh_key))"
-        required: true
-      - name: "Config branch"
-        description: "Branch of the config Git repository."
-        key: config_git_branch
-        widget: cy_branch
-        type: string
-        source: config_git_repository
-        default: "master"
-        required: true
-
   terraform:
     config:
       - name: "Cluster name"
@@ -595,7 +571,7 @@ scaleway-kapsule:
         key: module.kapsule.cluster_version
         widget: simple_text
         type: string
-        default: "1.19"
+        default: "1.27"
       - name: "Container Network Interface"
         description: "The Container Network Interface (CNI) for the Kubernetes cluster"
         key: module.kapsule.cni
@@ -753,30 +729,6 @@ scaleway-nodes:
         widget: simple_text
         type: string
         default: ($ organization_canonical $)-terraform-remote-state
-
-    Repos:
-      - name: "Config repository"
-        key: config_git_repository
-        type: string
-        widget: cy_crs
-        description: "Git repository URL containing the config of the stack."
-        default: "git@github.com:MyUser/config-kapsule.git"
-        required: true
-      - name: "Config git key"
-        description: "SSH key pair to fetch the config Git repository."
-        key: config_git_private_key
-        type: string
-        widget: cy_cred
-        default: "((ssh_config.ssh_key))"
-        required: true
-      - name: "Config branch"
-        description: "Branch of the config Git repository."
-        key: config_git_branch
-        widget: cy_branch
-        type: string
-        source: config_git_repository
-        default: "master"
-        required: true
 
   terraform:
     config:

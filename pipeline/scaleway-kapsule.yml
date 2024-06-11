@@ -32,7 +32,7 @@ resource_types:
   type: docker-image
   source:
     repository: ljfranklin/terraform-resource
-    tag: ((terraform_version))
+    tag: 1.8.2
 
 resources:
 
@@ -40,12 +40,12 @@ resources:
   type: terraform
   icon: terraform
   source:
-    env_name: ((env))
+    env_name: ($ environment $)
     backend_type: s3
     backend_config:
       bucket: ((terraform_storage_bucket_name))
-      key: ((project))-((env)).tfstate
-      workspace_key_prefix: ((project))
+      key: ($ project $)-($ environment $).tfstate
+      workspace_key_prefix: ($ project $)
       region: ((scw_default_region))
       access_key: ((scw_access_key))
       secret_key: ((scw_secret_key))
@@ -60,9 +60,9 @@ resources:
       scw_access_key: ((scw_access_key))
       scw_secret_key: ((scw_secret_key))
       scw_region: ((scw_default_region))
-      env: ((env))
-      customer: ((customer))
-      project: ((project))
+      env: ($ environment $)
+      customer: ($ organization_canonical $)
+      project: ($ project $)
     env:
       # required for the s3 backend to work when using external scaleway terraform remote state references
       AWS_ACCESS_KEY_ID: ((scw_access_key))
@@ -74,7 +74,7 @@ resources:
   icon: git
   source:
     uri: https://github.com/cycloid-community-catalog/stack-kubernetes.git
-    branch: ((stack_git_branch))
+    branch: master
     paths:
       - terraform/scaleway-kapsule/*
 
@@ -83,11 +83,11 @@ resources:
   type: git
   icon: git
   source:
-    uri: ((config_git_repository))
-    branch: ((config_git_branch))
-    private_key: ((config_git_private_key))
+    uri: ($ cr_url $)
+    branch: ($ cr_branch $)
+    private_key: ((($ cr_cred_path $).ssh_key))
     paths:
-      - ((config_terraform_path))/*
+      - ($ project $)/terraform/($ environment $)/*
 
 jobs:
 
@@ -112,7 +112,7 @@ jobs:
           - name: git_stack-terraform
             path: "stack"
         params:
-          CONFIG_PATH: ((config_terraform_path))
+          CONFIG_PATH: ($ project $)/terraform/($ environment $)
           STACK_PATH: terraform/scaleway-kapsule
 
       - put: tfstate
@@ -149,7 +149,7 @@ jobs:
           - name: git_stack-terraform
             path: "stack"
         params:
-          CONFIG_PATH: ((config_terraform_path))
+          CONFIG_PATH: ($ project $)/terraform/($ environment $)
           STACK_PATH: terraform/scaleway-kapsule
 
       - put: tfstate
@@ -175,7 +175,7 @@ jobs:
             - name: git_stack-terraform
               path: "stack"
           params:
-            CONFIG_PATH: ((config_terraform_path))
+            CONFIG_PATH: ($ project $)/terraform/($ environment $)
             STACK_PATH: terraform/scaleway-kapsule
 
         - put: tfstate
