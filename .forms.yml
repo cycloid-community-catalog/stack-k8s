@@ -583,17 +583,6 @@ scaleway-kapsule:
             - "calico"
             - "weave"
             - "flannel"
-      - name: "Ingress controller"
-        description: "The ingress controller to be deployed on the Kubernetes cluster"
-        key: module.kapsule.ingress
-        widget: auto_complete
-        type: string
-        default: "nginx"
-        values:
-            - "nginx"
-            - "traefik"
-            - "traefik2"
-            - "none"
       - name: "Kubernetes auto upgrade"
         description: "Set to `true` to enable Kubernetes patch version auto upgrades."
         key: module.kapsule.auto_upgrade
